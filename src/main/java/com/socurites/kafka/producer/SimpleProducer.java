@@ -3,6 +3,7 @@ package com.socurites.kafka.producer;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -37,12 +38,16 @@ public class SimpleProducer {
 		producer = new KafkaProducer<>(configs);
 	}
 	
+	@PreDestroy
+	public void close() {
+		producer.close();
+	}
+	
 	public void send(String key, String value) {
 		ProducerRecord<String, String> record = new ProducerRecord<String, String>(TOPIC_NAME, key, value);
 		
 		producer.send(record);
 		log.info("Sended Records: {}", record);
 		producer.flush();
-		producer.close();
 	}
 }
