@@ -4,6 +4,10 @@ plugins {
 	id 'java'
 }
 
+ext {
+	kafkaVersion = '2.8.0'
+}
+
 group = 'com.socurites'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -20,7 +24,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0'
+	implementation group: 'org.apache.kafka', name: 'kafka-clients', version: "${kafkaVersion}"
+	implementation group: 'org.apache.kafka', name: 'kafka-streams', version: "${kafkaVersion}"
 	
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
